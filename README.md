@@ -22,7 +22,7 @@ Use your keyboard arrow keys to move and spacebar to shoot, R for new random see
 
 ## Info
 
-WIP, not what I intended it to be. It's become a bit of a problem child or burden because I just don't feel the original plan I wrote up for it anymore. I am not sure I even want to continue with the idea, rather just cap it off at some point of reasonable completion. Seem to run pretty well on the RPI 4B+ though which is pretty cool.
+WIP, not what I intended it to be. It's become a bit of a problem child or burden because I just don't feel the original plan I wrote up for it anymore. I am not sure I even want to continue with the idea, rather just cap it off at some point of reasonable completion. It seems to run pretty well on the RPI 4B+ though which is pretty cool.
 
 The game that inspired this: https://www.pouet.net/prod.php?which=12116
 
