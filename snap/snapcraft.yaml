@@ -1,4 +1,4 @@
-name: Cube Shooter
+name: cubes2
 base: core20
 version: '1.0'
 summary: A 3D arcade platformer / shooter combo.
