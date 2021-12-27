@@ -1,7 +1,11 @@
 # cubes2
 A simple 3D arcade platformer / shooter combo.
 
+## Controls
+
 Use your keyboard arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.
+
+## Info
 
 WIP, not what I intended it to be. It's become a bit of a problem child or burden because I just don't feel the original plan I wrote up for it anymore. I am not sure I even want to continue with the idea, rather just cap it off at some point of reasonable completion.
 
