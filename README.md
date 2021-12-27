@@ -1,6 +1,8 @@
 # cubes2
 A simple 3D arcade platformer / shooter combo.
 
+![Screenshot of the Cube Shooter game aka Cubes 2](https://dashboard.snapcraft.io/site_media/appmedia/2021/12/Screenshot_2021-12-27_09-20-59.png)
+
 ## Downloads
 
 ### Snapcraft
