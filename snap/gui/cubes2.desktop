@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Cubes Shooter
+Name=Cube Shooter
 Comment=A 3D arcade platformer / shooter combo.
 StartupNotify=false
 Exec=cubes2
