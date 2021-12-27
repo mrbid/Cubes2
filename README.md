@@ -30,8 +30,8 @@ The game that inspired this: https://www.pouet.net/prod.php?which=12116
 to re-create that swirling pattern in the original game.
 
 ## Attributions
-http://www.forrestwalter.com/icons/
-https://unsplash.com/photos/4dpAqfTbvKA
-https://wallup.net/galaxy-spiral-galaxy-space-2/
-https://hdwallpaperim.com/space-stars-nebula-galaxy-space-art-spiral-galaxy-spiral/
-https://4kwallpapers.com/space/spiral-galaxy-milky-way-stars-deep-space-colorful-astronomy-5363.html
+http://www.forrestwalter.com/icons/<br>
+https://unsplash.com/photos/4dpAqfTbvKA<br>
+https://wallup.net/galaxy-spiral-galaxy-space-2/<br>
+https://hdwallpaperim.com/space-stars-nebula-galaxy-space-art-spiral-galaxy-spiral/<br>
+https://4kwallpapers.com/space/spiral-galaxy-milky-way-stars-deep-space-colorful-astronomy-5363.html<br>
