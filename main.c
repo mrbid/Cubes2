@@ -277,6 +277,7 @@ void rCube(f32 x, f32 y, f32 z, f32 lightness, uint light_mode, f32 r, f32 g, f3
     {
         const f32 s = 0.5f - (fabs(z) / 128.f);
         mScale(&model, s, s, s);
+        light_mode = 2;
     }
     mMul(&modelview, &model, &view);
     glUniformMatrix4fv(projection_id, 1, GL_FALSE, (f32*) &projection.m[0][0]);
@@ -306,8 +307,6 @@ void rCube(f32 x, f32 y, f32 z, f32 lightness, uint light_mode, f32 r, f32 g, f3
     else if(light_mode == 1)
         glUniform3f(color_id, r * lightness, g * lightness, b * lightness);
     else if(light_mode == 2)
-        glUniform3f(color_id, r, g, b);
-    else if(light_mode == 4)
         glUniform3f(color_id, r, g, b);
 
     // bind
@@ -667,6 +666,7 @@ int main(int argc, char** argv)
     // help
     printf("Cube Shooter\n");
     printf("James William Fletcher (james@voxdsp.com)\n\n");
+    printf("Use your keyboard arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.\n\n");
 
     // init glfw
     if(!glfwInit()){exit(EXIT_FAILURE);}
