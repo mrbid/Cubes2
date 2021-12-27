@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Cubes Shooter
+Comment=A 3D arcade platformer / shooter combo.
+StartupNotify=false
+Exec=cubes2
+Icon=${SNAP}/meta/gui/cubes2.png
+Terminal=false
+Type=Application
+Categories=Application;Game;ArcadeGame;

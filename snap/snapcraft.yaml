@@ -1,0 +1,41 @@
+name: Cube Shooter
+base: core20
+version: '1.0'
+summary: A 3D arcade platformer / shooter combo.
+description: |
+  Use your keyboard arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+    run-on: amd64
+  - build-on: arm64
+    run-on: arm64
+  - build-on: armhf
+    run-on: armhf
+
+apps:
+  cubes2:
+    extensions: [gnome-3-38]
+    command: cubes2
+    plugs:
+    - desktop
+    - desktop-legacy
+    - gsettings
+    - opengl
+    - wayland
+    - x11
+    - joystick
+
+parts:
+  cubes2:
+    source: https://github.com/mrbid/cubes2
+    source-type: git
+    plugin: make
+    build-packages:
+    - libglfw3-dev
+    stage-packages:
+    - libglfw3
+    - libgles2
