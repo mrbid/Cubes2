@@ -286,7 +286,7 @@ void rCube(f32 x, f32 y, f32 z, f32 lightness, uint light_mode, f32 r, f32 g, f3
     glUniform1f(opacity_id, 1.0f);
     
     // compute lightness
-    f32 lf = fabs(sinf(t+r+g+b));
+    f32 lf = fabs(sinf(t+r+g+b)); // it's the `+r+g+b` causing the light strobe to de-synchronise from the cube color strobe, but meh it's a game not a simulation. I prefer it this way, the game actually has a very subtle uneasy feeling to it due to these mild oddities.
     if(lf < 0.3f){lf = 0.3f;}
     lightness /= 6.f * lf;
     if(lightness > 2.f)
@@ -586,17 +586,20 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         else if(key == GLFW_KEY_R)
         {
             const unsigned int nr = time(0);
-            srand(nr);
-            srandf(nr);
+            srand(t*100);
+            srandf(t*100);
             char strts[16];
             timestamp(&strts[0]);
             printf("[%s] New Random Seed: %u\n", strts, nr);
+
+            for(uint i = 0; i < ARRAY_MAX; i++)
+                rndCube(i, esRandFloat(-64.f, -FAR_DISTANCE));
         }
     }
-    else if(action == GLFW_RELEASE)
-    {
-        //
-    }
+    // else if(action == GLFW_RELEASE)
+    // {
+    //     //
+    // }
 
     // show average fps
     if(key == GLFW_KEY_F)
@@ -752,7 +755,7 @@ int main(int argc, char** argv)
     // final score
     char strts[16];
     timestamp(&strts[0]);
-    printf("[%s] SCORE %i - HIT %u - LOSS %u\n", strts, score, hit, loss);
+    printf("[%s] SCORE %i - HIT %u - LOSS %u\n\n", strts, score, hit, loss);
 
     // done
     glfwDestroyWindow(window);
