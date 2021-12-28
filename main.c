@@ -404,7 +404,9 @@ void main_loop()
     // if(x2-floor(x2) != 0){x += 1;}
     // if(y2-floor(y2) != 0){y += 1;}
     // rCube(x, y, pp.z, 0.f, 2, 1.f,1.f,0.f);
-    rCube(pp.x, pp.y, pp.z, 0.f, 2, 1.f,1.f,0.f);
+
+    const f32 red = nsat(1.f - ((f32)loss / (f32)hit)); // you are the health bar
+    rCube(pp.x, pp.y, pp.z, 0.f, 2, 1.f,red,0.f);
 
     // bullets
     for(uint i = 0; i < ARRAY_MAX; i++)
@@ -451,13 +453,16 @@ void main_loop()
     // simulate cubes
     for(uint i = 0; i < ARRAY_MAX; i++)
     {
+        // simuate
         array_cube[i].pos.z += array_cube[i].pos.w * dt;
-        if(array_cube[i].pos.z > 20.f || array_cube[i].pos.y < 2.f)
+        if(array_cube[i].pos.z > 20.f || array_cube[i].pos.y < 2.f) // cube reset condition
             rndCube(i, -FAR_DISTANCE);
 
+        // on cube death make it nose dive
         if(array_cube[i].health == 0)
             array_cube[i].pos.y -= array_cube[i].pos.w * dt;
 
+        // cube got past you alive
         if(array_cube[i].health == 1 && array_cube[i].pos.z > -6.f)
         {
             array_cube[i].health = 1337;
@@ -471,10 +476,14 @@ void main_loop()
             printf("[%s] Minus Score: %i\n", strts, score);
         }
         
-        rCube(array_cube[i].pos.x, array_cube[i].pos.y, array_cube[i].pos.z, 3.f, 1, array_cube[i].r, array_cube[i].g, array_cube[i].b);
+        // draw cube red if its past you, or original colour if not
+        if(array_cube[i].pos.z > -6.f)
+            rCube(array_cube[i].pos.x, array_cube[i].pos.y, array_cube[i].pos.z, 3.f, 1, 1.f,0.f,0.f);
+        else
+            rCube(array_cube[i].pos.x, array_cube[i].pos.y, array_cube[i].pos.z, 3.f, 1, array_cube[i].r, array_cube[i].g, array_cube[i].b);
     }
 
-    // draw grid
+    // draw grid [per wall](find nearest light source, render cube)
     for(uint x = 0; x < 17; x++)
     {
         for(uint y = 0; y < 32; y++)
@@ -695,7 +704,7 @@ int main(int argc, char** argv)
     glfwSetWindowIcon(window, 1, &(GLFWimage){16, 16, (unsigned char*)&icon_image.pixel_data});
 
     // hide cursor
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     // seed random
     srand(NEWGAME_SEED);
