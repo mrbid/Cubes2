@@ -445,7 +445,7 @@ void main_loop()
             // check bullet death and draw
             if(array_bullet[i].z < -64.f)
                 array_bullet[i].z = 0.f;
-            else
+            else if(array_bullet[i].z != 0.f)
                 rCube(array_bullet[i].x, array_bullet[i].y, array_bullet[i].z, 0.f, 4, 1.f, 1.f, 0.f);
         }
     }
@@ -477,7 +477,7 @@ void main_loop()
         }
         
         // draw cube red if its past you, or original colour if not
-        if(array_cube[i].pos.z > -6.f)
+        if(array_cube[i].pos.z > -6.f && array_cube[i].health != 0)
             rCube(array_cube[i].pos.x, array_cube[i].pos.y, array_cube[i].pos.z, 3.f, 1, 1.f,0.f,0.f);
         else
             rCube(array_cube[i].pos.x, array_cube[i].pos.y, array_cube[i].pos.z, 3.f, 1, array_cube[i].r, array_cube[i].g, array_cube[i].b);
