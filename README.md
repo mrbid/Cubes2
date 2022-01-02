@@ -19,7 +19,7 @@ https://github.com/mrbid/cubes2/raw/main/cubes2_arm
 
 ### Windows Binary
 https://github.com/mrbid/cubes2/raw/main/cubes2.exe<br>
-https://github.com/mrbid/cubes2/raw/main/glfw.dll
+https://github.com/mrbid/cubes2/raw/main/glfw3.dll
 
 ## Controls
 
