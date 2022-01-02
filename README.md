@@ -8,6 +8,9 @@ A simple 3D arcade platformer / shooter combo.
 ### Snapcraft
 https://snapcraft.io/cubes2
 
+### AppImage
+https://github.com/mrbid/cubes2/raw/main/Cubes_Shooter-x86_64.AppImage
+
 ### [x86_64] Linux Binary (Ubuntu 21.10)
 https://github.com/mrbid/cubes2/raw/main/cubes2
 
