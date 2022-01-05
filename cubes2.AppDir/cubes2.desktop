@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Cube Shooter
 Exec=cubes2
-Icon=icon.png
+Icon=icon
 Type=Application
 Categories=Application;Game;ArcadeGame;
