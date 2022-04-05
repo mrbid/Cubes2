@@ -157,7 +157,7 @@ float randfn()
         v = randf() * 2 - 1;
         r = u * u + v * v;
     }
-    return u * sqrtps(-2 * log(r) / r);
+    return u * sqrtps(-2 * logf(r) / r);
 }
 
 void vRuv(vec* v)
