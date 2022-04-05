@@ -148,16 +148,16 @@ float randf()
 
 float randfn()
 {
-    float u = randf() * 2 - 1;
-    float v = randf() * 2 - 1;
+    float u = randf() * 2.f - 1.f;
+    float v = randf() * 2.f - 1.f;
     float r = u * u + v * v;
-    while(r == 0 || r > 1)
+    while(r == 0 || r > 1.f)
     {
-        u = randf() * 2 - 1;
-        v = randf() * 2 - 1;
+        u = randf() * 2.f - 1.f;
+        v = randf() * 2.f - 1.f;
         r = u * u + v * v;
     }
-    return u * sqrtps(-2 * logf(r) / r);
+    return u * sqrtps(-2.f * logf(r) / r);
 }
 
 void vRuv(vec* v)
