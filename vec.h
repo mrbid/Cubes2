@@ -141,7 +141,7 @@ float randf()
     srandfq = _m_to_int64(mm0);
 
     _m_empty();
-    return fabs(srandfq+1e-7f) * INV_FLOAT_MAX;
+    return fabsf(srandfq+1e-7f) * INV_FLOAT_MAX;
 }
 
 #endif
@@ -151,7 +151,7 @@ float randfn()
     float u = randf() * 2.f - 1.f;
     float v = randf() * 2.f - 1.f;
     float r = u * u + v * v;
-    while(r == 0 || r > 1.f)
+    while(r == 0.f || r > 1.f)
     {
         u = randf() * 2.f - 1.f;
         v = randf() * 2.f - 1.f;
@@ -257,9 +257,9 @@ float vDistMh(const vec a, const vec b)
 
 float vDistLa(const vec v1, const vec v2)
 {
-    const float xm = fabs(v1.x - v2.x);
-    const float ym = fabs(v1.y - v2.y);
-    const float zm = fabs(v1.z - v2.z);
+    const float xm = fabsf(v1.x - v2.x);
+    const float ym = fabsf(v1.y - v2.y);
+    const float zm = fabsf(v1.z - v2.z);
 
     float dist = xm;
     if(ym > dist)
