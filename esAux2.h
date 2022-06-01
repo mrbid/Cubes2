@@ -10,6 +10,7 @@
 
     v2.0:
         - added support for fullbright texture mapping
+        - added esRebind()
 
     v1.0:
         The shaders are the product of a little help from:
@@ -52,6 +53,7 @@ typedef struct
 GLuint esRand(const GLuint min, const GLuint max);
 GLfloat esRandFloat(const GLfloat min, const GLfloat max);
 void esBind(const GLenum target, GLuint* buffer, const void* data, const GLsizeiptr datalen, const GLenum usage);
+void esRebind(const GLenum target, GLuint* buffer, const void* data, const GLsizeiptr datalen, const GLenum usage);
 void esBindModel(ESModel* model, const GLfloat* vertices, const GLsizei vertlen, const GLushort* indices, const GLsizei indlen);
 GLuint esLoadTexture(const GLuint w, const GLuint h, const unsigned char* data);
 GLuint esLoadTextureA(const GLuint w, const GLuint h, const unsigned char* data);
@@ -108,10 +110,16 @@ void esBind(const GLenum target, GLuint* buffer, const void* data, const GLsizei
     glBufferData(target, datalen, data, usage);
 }
 
+void esRebind(const GLenum target, GLuint* buffer, const void* data, const GLsizeiptr datalen, const GLenum usage)
+{
+    glBindBuffer(target, *buffer);
+    glBufferData(target, datalen, data, usage);
+}
+
 void esBindModel(ESModel* model, const GLfloat* vertices, const GLsizei vertlen, const GLushort* indices, const GLsizei indlen)
 {
     esBind(GL_ARRAY_BUFFER, &model->vid, vertices, vertlen * sizeof(GLfloat) * 3, GL_STATIC_DRAW);
-    esBind(GL_ARRAY_BUFFER, &model->iid, indices, indlen * sizeof(GLushort), GL_STATIC_DRAW);
+    esBind(GL_ELEMENT_ARRAY_BUFFER, &model->iid, indices, indlen * sizeof(GLushort), GL_STATIC_DRAW);
 }
 
 GLuint esLoadTexture(const GLuint w, const GLuint h, const unsigned char* data)
@@ -316,8 +324,10 @@ const GLchar* f1 =
     "varying vec3 vertCol;\n"
     "varying float vertOpa;\n"
     "varying vec3 vlightPos;\n"
+    //"float rand(vec2 co){return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);}\n"
     "void main()\n"
     "{\n"
+        //"vec3 ambientColor = vertCol * 0.148*sin(vertNorm);\n" // lol
         "vec3 ambientColor = vertCol * 0.148;\n"
         "vec3 diffuseColor = vertCol;\n"
         "vec3 normal = normalize(vertNorm);\n"
