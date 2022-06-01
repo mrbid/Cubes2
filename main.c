@@ -719,7 +719,7 @@ int main(int argc, char** argv)
     // ***** BIND CUBE *****
     esBind(GL_ARRAY_BUFFER, &mdlCube.vid, cube_vertices, sizeof(cube_vertices), GL_STATIC_DRAW);
     esBind(GL_ARRAY_BUFFER, &mdlCube.nid, cube_normals, sizeof(cube_normals), GL_STATIC_DRAW);
-    esBind(GL_ARRAY_BUFFER, &mdlCube.iid, cube_indices, sizeof(cube_indices), GL_STATIC_DRAW);
+    esBind(GL_ELEMENT_ARRAY_BUFFER, &mdlCube.iid, cube_indices, sizeof(cube_indices), GL_STATIC_DRAW);
 
 //*************************************
 // compile & link shader programs
