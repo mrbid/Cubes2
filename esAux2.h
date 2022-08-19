@@ -1,6 +1,6 @@
 /*
 --------------------------------------------------
-    James William Fletcher (james@voxdsp.com)
+    James William Fletcher (github.com/mrbid)
         October 2021 - esAux2.h v2.0
 --------------------------------------------------
 
