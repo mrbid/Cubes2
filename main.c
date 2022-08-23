@@ -331,7 +331,7 @@ void rCube(f32 x, f32 y, f32 z, f32 lightness, uint light_mode, f32 r, f32 g, f3
 void rndCube(uint i, f32 far)
 {
     array_cube[i].health = 1;
-    array_cube[i].pos = (vec){(1 + esRand(0, 14)) * 2, (1 + esRand(0, 8)) * 2, far, 1.f + randf()*9.f};
+    array_cube[i].pos = (vec){(1 + esRand(0, 15)) * 2, (1 + esRand(0, 9)) * 2, far, 1.f + randf()*9.f};
     array_cube[i].r = randf();
     array_cube[i].g = randf();
     array_cube[i].b = randf();
