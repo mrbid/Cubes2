@@ -93,14 +93,14 @@ void shadePhong3(GLint* position, GLint* projection, GLint* modelview, GLint* no
 
 GLuint esRand(const GLuint min, const GLuint max)
 {
-    static GLfloat rndmax = (GLfloat)RAND_MAX;
-    return ((((GLfloat)rand())+1e-7f) / rndmax) * ((max+1)-min) + min;
+    static GLfloat rndmax = 1.f/(GLfloat)RAND_MAX;
+    return (((GLfloat)rand()) * rndmax) * (max-min) + min;
 }
 
 GLfloat esRandFloat(const GLfloat min, const GLfloat max)
 {
-    static GLfloat rndmax = (GLfloat)RAND_MAX;
-    return ( ((((GLfloat)rand())+1e-7f) / rndmax) * (max-min) ) + min;
+    static GLfloat rndmax = 1.f/(GLfloat)RAND_MAX;
+    return ( (((GLfloat)rand()) * rndmax) * (max-min) ) + min;
 }
 
 void esBind(const GLenum target, GLuint* buffer, const void* data, const GLsizeiptr datalen, const GLenum usage)
