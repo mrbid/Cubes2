@@ -668,7 +668,7 @@ int main(int argc, char** argv)
 {
     // help
     printf("Cube Shooter\n");
-    printf("James William Fletcher (james@voxdsp.com)\n\n");
+    printf("James William Fletcher (github.com/mrbid)\n\n");
     printf("Use your keyboard arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.\n\n");
 
     // init glfw
