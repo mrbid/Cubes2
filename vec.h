@@ -108,7 +108,7 @@ static inline float sqrtps(float f)
 // https://www.musicdsp.org/en/latest/Other/273-fast-float-random-numbers.html
 // moc.liamg@seir.kinimod
 
-int srandfq = 8008135;
+int srandfq = 74235;
 static inline void srandf(const int seed)
 {
     srandfq = seed;
@@ -120,6 +120,12 @@ float randf()
     return (float)(srandfq & 0x7FFFFFFF) * 4.6566129e-010f;
 }
 
+float randfc()
+{
+    srandfq *= 16807;
+    return ((float)(srandfq)) * 4.6566129e-010f;
+}
+
 #else
 
 // adapted from ogre3d asm_math.h
@@ -127,7 +133,7 @@ float randf()
 // https://www.cs.cmu.edu/afs/andrew/scs/cs/oldfiles/15-494-sp09/dst/A/sw/ogre-1.6.4/OgreMain/include/asm_math.h
 // https://gist.github.com/mrbid/9a050ee747a9188bc0aa849385bef865#file-rand_float_normal_bench-c-L63
 
-__int64_t srandfq = 8008135;
+__int64_t srandfq = 74235;
 static inline void srandf(const __int64_t seed)
 {
     srandfq = seed;
@@ -139,22 +145,31 @@ float randf()
     __m64 mm1 = _m_pshufw(mm0, 0x1E);
     mm0 = _mm_add_pi32(mm0, mm1);
     srandfq = _m_to_int64(mm0);
-
     _m_empty();
-    return fabsf(srandfq+1e-7f) * INV_FLOAT_MAX;
+    return fabsf(srandfq) * INV_FLOAT_MAX;
+}
+
+float randfc()
+{
+    __m64 mm0 = _mm_cvtsi64_m64(srandfq);
+    __m64 mm1 = _m_pshufw(mm0, 0x1E);
+    mm0 = _mm_add_pi32(mm0, mm1);
+    srandfq = _m_to_int64(mm0);
+    _m_empty();
+    return srandfq * INV_FLOAT_MAX;
 }
 
 #endif
 
 float randfn()
 {
-    float u = randf() * 2.f - 1.f;
-    float v = randf() * 2.f - 1.f;
+    float u = randfc();
+    float v = randfc();
     float r = u * u + v * v;
     while(r == 0.f || r > 1.f)
     {
-        u = randf() * 2.f - 1.f;
-        v = randf() * 2.f - 1.f;
+        u = randfc();
+        v = randfc();
         r = u * u + v * v;
     }
     return u * sqrtps(-2.f * logf(r) / r);
@@ -162,9 +177,9 @@ float randfn()
 
 void vRuv(vec* v)
 {
-    v->x = (randf() * 2.f) - 1.f;
-    v->y = (randf() * 2.f) - 1.f;
-    v->z = (randf() * 2.f) - 1.f;
+    v->x = randfc();
+    v->y = randfc();
+    v->z = randfc();
 }
 
 void vRuvN(vec* v)
@@ -179,7 +194,7 @@ void vRuvBT(vec* v)
     // https://math.stackexchange.com/a/1586185
     // or should I have called this vRuvLR()
     // https://mathworld.wolfram.com/SpherePointPicking.html
-    const float y = acosf((randf() * 2.f) - 1.f) - d2PI;
+    const float y = acosf(randfc()) - d2PI;
     const float p = x2PI * randf();
     v->x = cosf(y) * cosf(p);
     v->y = cosf(y) * sinf(p);
@@ -191,9 +206,9 @@ void vRuvTA(vec* v)
     // T.P.Davison@tees.ac.uk
     while(1)
     {
-        v->x = (randf() * 2.f) - 1.f;
-        v->y = (randf() * 2.f) - 1.f;
-        v->z = (randf() * 2.f) - 1.f;
+        v->x = randfc();
+        v->y = randfc();
+        v->z = randfc();
         const float len = vMag(*v);
         if(len <= 1.0f){return;}
     }
@@ -204,7 +219,7 @@ void vRuvTD(vec* v)
     // T.P.Davison@tees.ac.uk
     v->x = sinf((randf() * x2PI) - PI);
     v->y = cosf((randf() * x2PI) - PI);
-    v->z = (randf() * 2.f) - 1.f;
+    v->z = randfc();
 }
 
 void vCross(vec* r, const vec v1, const vec v2)
@@ -318,7 +333,7 @@ void vMax(vec* r, const vec v1, const vec v2)
 
 int vec_ftoi(float f)
 {
-    if(f < 0)
+    if(f < 0.f)
         f -= 0.5f;
     else
         f += 0.5f;
