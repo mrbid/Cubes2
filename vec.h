@@ -37,8 +37,9 @@ typedef struct{
 
 static inline float rsqrtss(float f);
 static inline float sqrtps(float f);
-float randf();  // uniform
-float randfn(); // box-muller normal
+float randf();  // uniform [0 to 1]
+float randfc(); // uniform [-1 to 1]
+float randfn(); // box-muller normal [bi-directional]
 int vec_ftoi(float f); // float to integer quantise
 
 // normalising the result is optional / at the callers responsibility
@@ -146,7 +147,7 @@ float randf()
     mm0 = _mm_add_pi32(mm0, mm1);
     srandfq = _m_to_int64(mm0);
     _m_empty();
-    return fabsf(srandfq) * INV_FLOAT_MAX;
+    return fabsf((float)srandfq) * INV_FLOAT_MAX;
 }
 
 float randfc()
@@ -156,7 +157,7 @@ float randfc()
     mm0 = _mm_add_pi32(mm0, mm1);
     srandfq = _m_to_int64(mm0);
     _m_empty();
-    return srandfq * INV_FLOAT_MAX;
+    return ((float)srandfq) * INV_FLOAT_MAX;
 }
 
 #endif

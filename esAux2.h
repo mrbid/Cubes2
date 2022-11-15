@@ -93,14 +93,13 @@ void shadePhong3(GLint* position, GLint* projection, GLint* modelview, GLint* no
 
 GLuint esRand(const GLuint min, const GLuint max)
 {
-    static GLfloat rndmax = 1.f/(GLfloat)RAND_MAX;
-    return (((GLfloat)rand()) * rndmax) * (max-min) + min;
+    return (rand()%(max+1-min))+min;
 }
 
 GLfloat esRandFloat(const GLfloat min, const GLfloat max)
 {
-    static GLfloat rndmax = 1.f/(GLfloat)RAND_MAX;
-    return ( (((GLfloat)rand()) * rndmax) * (max-min) ) + min;
+    static GLfloat rrndmax = 1.f/(GLfloat)RAND_MAX;
+    return ( (((GLfloat)rand()) * rrndmax) * (max-min) ) + min;
 }
 
 void esBind(const GLenum target, GLuint* buffer, const void* data, const GLsizeiptr datalen, const GLenum usage)
@@ -352,13 +351,13 @@ const GLchar* v2 =
     "varying vec3 vlightPos;\n"
     "void main()\n"
     "{\n"
-        "vec4 vertPos4 = modelview * position;"
-        "vertPos = vec3(vertPos4) / vertPos4.w;"
+        "vec4 vertPos4 = modelview * position;\n"
+        "vertPos = vec3(vertPos4) / vertPos4.w;\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
-        "normalInterp = vec3(normalmat * vec4(position.xyz, 0.0));"
-        "gl_Position = projection * modelview * position;"
+        "normalInterp = vec3(normalmat * vec4(position.xyz, 0.0));\n"
+        "gl_Position = projection * modelview * position;\n"
     "}\n";
 
 const GLchar* v21 = 
@@ -378,13 +377,13 @@ const GLchar* v21 =
     "varying vec3 vlightPos;\n"
     "void main()\n"
     "{\n"
-        "vec4 vertPos4 = modelview * position;"
-        "vertPos = vec3(vertPos4) / vertPos4.w;"
+        "vec4 vertPos4 = modelview * position;\n"
+        "vertPos = vec3(vertPos4) / vertPos4.w;\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
-        "normalInterp = vec3(normalmat * vec4(normal.xyz, 0.0));"
-        "gl_Position = projection * modelview * position;"
+        "normalInterp = vec3(normalmat * vec4(normal.xyz, 0.0));\n"
+        "gl_Position = projection * modelview * position;\n"
     "}\n";
 
 const GLchar* v22 = 
@@ -403,13 +402,13 @@ const GLchar* v22 =
     "varying vec3 vlightPos;\n"
     "void main()\n"
     "{\n"
-        "vec4 vertPos4 = modelview * position;"
-        "vertPos = vec3(vertPos4) / vertPos4.w;"
+        "vec4 vertPos4 = modelview * position;\n"
+        "vertPos = vec3(vertPos4) / vertPos4.w;\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
-        "normalInterp = vec3(normalmat * vec4(position.xyz, 0.0));"
-        "gl_Position = projection * modelview * position;"
+        "normalInterp = vec3(normalmat * vec4(position.xyz, 0.0));\n"
+        "gl_Position = projection * modelview * position;\n"
     "}\n";
 
 const GLchar* v23 = 
@@ -429,13 +428,13 @@ const GLchar* v23 =
     "varying vec3 vlightPos;\n"
     "void main()\n"
     "{\n"
-        "vec4 vertPos4 = modelview * position;"
-        "vertPos = vec3(vertPos4) / vertPos4.w;"
+        "vec4 vertPos4 = modelview * position;\n"
+        "vertPos = vec3(vertPos4) / vertPos4.w;\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
-        "normalInterp = vec3(normalmat * vec4(normal.xyz, 0.0));"
-        "gl_Position = projection * modelview * position;"
+        "normalInterp = vec3(normalmat * vec4(normal.xyz, 0.0));\n"
+        "gl_Position = projection * modelview * position;\n"
     "}\n";
    
 const GLchar* f2 = 

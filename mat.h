@@ -18,10 +18,10 @@ typedef struct
 } mat;
 
 void mIdent(mat *m);
-void mCopy(mat* r, const mat* v);
-void mMul(mat *r, const mat *a, const mat *b);
-void mMulP(vec *r, const mat *a, const float x, const float y, const float z);
-void mMulV(vec *r, const mat *a, const vec v);
+void mCopy(mat *restrict r, const mat *restrict v);
+void mMul(mat *restrict r, const mat *restrict a, const mat *restrict b);
+void mMulP(vec *restrict r, const mat *restrict a, const float x, const float y, const float z);
+void mMulV(vec *restrict r, const mat *restrict a, const vec v);
 void mScale(mat *r, const float x, const float y, const float z);
 void mTranslate(mat *r, const float x, const float y, const float z);
 void mRotate(mat *r, const float radians, float x, float y, float z);
@@ -32,13 +32,14 @@ void mFrustum(mat *r, const float left, const float right, const float bottom, c
 void mPerspective(mat *r, const float fovy, const float aspect, const float nearZ, const float farZ);
 void mOrtho(mat *r, const float left, const float right, const float bottom, const float top, const float nearZ, const float farZ);
 void mLookAt(mat *r, const vec origin, const vec unit_dir);
-void mInvert(float *dst, const float *mat);
-void mTranspose(mat *r, const mat* m);
+void mInvert(float *restrict dst, const float *restrict mat);
+void mTranspose(mat *restrict r, const mat *restrict m);
 void mSetViewDir(mat *r, const vec dir_norm, const vec up_norm);
 void mGetViewDir(vec *r, const mat matrix); // returns normal/unit vector
 void mGetDirX(vec *r, const mat matrix);
 void mGetDirY(vec *r, const mat matrix);
 void mGetDirZ(vec *r, const mat matrix);
+void mGetPos(vec *r, const mat matrix);
 
 //
 
@@ -51,12 +52,12 @@ void mIdent(mat *m)
     m->m[3][3] = 1.0f;
 }
 
-void mCopy(mat* r, const mat* v)
+void mCopy(mat *restrict r, const mat *restrict v)
 {
     memcpy(r, v, sizeof(mat));
 }
 
-void mMul(mat *r, const mat *a, const mat *b)
+void mMul(mat *restrict r, const mat *restrict a, const mat *restrict b)
 {
     mat tmp;
     for(int i = 0; i < 4; i++)
@@ -84,7 +85,7 @@ void mMul(mat *r, const mat *a, const mat *b)
     memcpy(r, &tmp, sizeof(mat));
 }
 
-void mMulP(vec *r, const mat *a, const float x, const float y, const float z)
+void mMulP(vec *restrict r, const mat *restrict a, const float x, const float y, const float z)
 {
     r->x =  (a->m[0][0] * x) +
             (a->m[0][1] * x) +
@@ -102,7 +103,7 @@ void mMulP(vec *r, const mat *a, const float x, const float y, const float z)
             (a->m[2][3] * z) ;
 }
 
-void mMulV(vec *r, const mat *a, const vec v)
+void mMulV(vec *restrict r, const mat *restrict a, const vec v)
 {
     r->x =  (a->m[0][0] * v.x) +
             (a->m[0][1] * v.x) +
@@ -327,7 +328,7 @@ void mLookAt(mat *r, const vec origin, const vec unit_dir)
     r->m[3][2] = origin.z;
 }
 
-void mInvert(float *dst, const float *mat)
+void mInvert(float *restrict dst, const float *restrict mat)
 {
     // original source: ftp://download.intel.com/design/PentiumIII/sml/24504301.pdf
     // mirrored: https://github.com/esAux/esAux-Menger/raw/main/SIMD%20Matrix%20Inverse.pdf
@@ -418,7 +419,7 @@ void mInvert(float *dst, const float *mat)
     for(int j = 0; j < 16; j++){dst[j] *= det;}
 }
 
-void mTranspose(mat *r, const mat* m)
+void mTranspose(mat *r, const mat *restrict m)
 {
     r->m[1][0] = m->m[0][1];
     r->m[2][0] = m->m[0][2];
@@ -488,6 +489,13 @@ void mGetDirZ(vec *r, const mat matrix)
     r->x = matrix.m[2][0];
     r->y = matrix.m[2][1];
     r->z = matrix.m[2][2];
+}
+
+void mGetPos(vec *r, const mat matrix)
+{
+    r->x = matrix.m[3][0];
+    r->y = matrix.m[3][1];
+    r->z = matrix.m[3][2];
 }
 
 #endif
