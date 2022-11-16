@@ -231,7 +231,7 @@ const GLchar* v1 =
     "{\n"
         "vec4 vertPos4 = modelview * position;\n"
         "vertPos = vec3(vertPos4) / vertPos4.w;\n"
-        "vertNorm = vec3(modelview * vec4(position.xyz, 0.0));\n"
+        "vertNorm = vec3(modelview * vec4(normalize(position.xyz), 0.0));\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
@@ -308,7 +308,7 @@ const GLchar* v13 =
     "{\n"
         "vec4 vertPos4 = modelview * position;\n"
         "vertPos = vec3(vertPos4) / vertPos4.w;\n"
-        "vertNorm = vec3(modelview * vec4(position.xyz, 0.0));\n"
+        "vertNorm = vec3(modelview * vec4(normalize(position.xyz), 0.0));\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
@@ -343,7 +343,7 @@ const GLchar* v2 =
     "uniform float opacity;\n"
     "uniform vec3 lightpos;\n"
     "uniform vec3 color;\n"
-    "attribute vec4 position;\n"
+    "attribute vec3 position;\n"
     "varying vec3 normalInterp;\n"
     "varying vec3 vertPos;\n"
     "varying vec3 vertCol;\n"
@@ -351,13 +351,13 @@ const GLchar* v2 =
     "varying vec3 vlightPos;\n"
     "void main()\n"
     "{\n"
-        "vec4 vertPos4 = modelview * position;\n"
+        "vec4 vertPos4 = modelview * vec4(position, 1.0);\n"
         "vertPos = vec3(vertPos4) / vertPos4.w;\n"
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
-        "normalInterp = vec3(normalmat * vec4(position.xyz, 0.0));\n"
-        "gl_Position = projection * modelview * position;\n"
+        "normalInterp = vec3(normalmat * vec4(normalize(position.xyz), 0.0));\n"
+        "gl_Position = projection * modelview * vec4(position, 1.0);\n"
     "}\n";
 
 const GLchar* v21 = 
@@ -407,12 +407,12 @@ const GLchar* v22 =
         "vertCol = color;\n"
         "vertOpa = opacity;\n"
         "vlightPos = lightpos;\n"
-        "normalInterp = vec3(normalmat * vec4(position.xyz, 0.0));\n"
+        "normalInterp = vec3(normalmat * vec4(normalize(position.xyz), 0.0));\n"
         "gl_Position = projection * modelview * position;\n"
     "}\n";
 
 const GLchar* v23 = 
-    "#version 100\n" 
+    "#version 100\n"
     "uniform mat4 modelview;\n"
     "uniform mat4 projection;\n"
     "uniform mat4 normalmat;\n"
@@ -652,7 +652,7 @@ void makeLambert1()
 void makeLambert2()
 {
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &v1, NULL);
+    glShaderSource(vertexShader, 1, &v13, NULL);
     glCompileShader(vertexShader);
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
