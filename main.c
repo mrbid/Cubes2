@@ -245,6 +245,7 @@ vec array_bullet[ARRAY_MAX];
 vec pp;
 int score = 0;
 uint hit = 0, loss = 0;
+uint enable_mouse = 1;
 
 
 //*************************************
@@ -386,23 +387,46 @@ void main_loop()
 //*************************************
 
     // player
-    // glfwGetCursorPos(window, &x, &y);
-    // x = 2 + (x * rww) * 30;
-    // y = 18 + (y * rwh) * -18;
-    // if(x < 2.0){x = 2.0;}
-    // else if(x > 30.0){x = 30.0;}
-    // if(y < 2.0){y = 2.0;}
-    // else if(y > 18.0){y = 18.0;}
-    // x = floor(x+0.5);
-    // y = floor(y+0.5);
-    // const double x2 = x / 2;
-    // const double y2 = y / 2;
-    // if(x2-floor(x2) != 0){x += 1;}
-    // if(y2-floor(y2) != 0){y += 1;}
-    // rCube(x, y, pp.z, 0.f, 2, 1.f,1.f,0.f);
-
     const f32 red = nsat(1.f - ((f32)loss / (f32)hit)); // you are the health bar
+
+    if(enable_mouse == 1)
+    {
+        glfwGetCursorPos(window, &x, &y);
+        x -= winw/3.f; // could precompute
+        y -= winh/3.f; // could precompute
+        x *= 3.f;
+        y *= 3.f;
+        x = 2 + (x * rww) * 30;
+        y = 18 + (y * rwh) * -18;
+        if(x < 2.0){x = 2.0;}
+        else if(x > 30.0){x = 30.0;}
+        if(y < 2.0){y = 2.0;}
+        else if(y > 18.0){y = 18.0;}
+        x = floor(x+0.5);
+        y = floor(y+0.5);
+        const double x2 = x*0.5f;
+        const double y2 = y*0.5f;
+        if(x2-floor(x2) != 0){x += 1;}
+        if(y2-floor(y2) != 0){y += 1;}
+        pp.x = x, pp.y = y;
+    }
     rCube(pp.x, pp.y, pp.z, 0.f, 2, 1.f,red,0.f);
+
+    static float lx = 0.f, ly = 0.f;
+    if(lx != x || ly != y)
+    {
+        for(uint i = 0; i < ARRAY_MAX; i++)
+        {
+            if(array_bullet[i].z == 0.f)
+            {
+                array_bullet[i].x = pp.x;
+                array_bullet[i].y = pp.y;
+                array_bullet[i].z = -8.f;
+                break;
+            }
+        }
+    }
+    lx = x, ly = y;
 
     // bullets
     for(uint i = 0; i < ARRAY_MAX; i++)
@@ -624,25 +648,34 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
-// void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-// {
-//     if(button == GLFW_MOUSE_BUTTON_LEFT)
-//     {
-//         if(action == GLFW_PRESS)
-//         {
-//             for(uint i = 0; i < ARRAY_MAX; i++)
-//             {
-//                 if(array_bullet[i].z == 0.f)
-//                 {
-//                     array_bullet[i].x = x;
-//                     array_bullet[i].y = y;
-//                     array_bullet[i].z = -8.f;
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-// }
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    // if(button == GLFW_MOUSE_BUTTON_LEFT)
+    // {
+    //     if(action == GLFW_PRESS)
+    //     {
+    //         for(uint i = 0; i < ARRAY_MAX; i++)
+    //         {
+    //             if(array_bullet[i].z == 0.f)
+    //             {
+    //                 array_bullet[i].x = x;
+    //                 array_bullet[i].y = y;
+    //                 array_bullet[i].z = -8.f;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
+
+    if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    {
+        enable_mouse = 1 - enable_mouse;
+        if(enable_mouse == 1)
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); // GLFW_CURSOR_HIDDEN GLFW_CURSOR_DISABLED
+        else
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+}
 
 void window_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -663,7 +696,8 @@ void window_size_callback(GLFWwindow* window, int width, int height)
     uh2 = 1 / wh2;
 
     mIdent(&projection);
-    mPerspective(&projection, 60.0f, aspect, 1.0f, FAR_DISTANCE); 
+    mPerspective(&projection, 60.0f, aspect, 1.0f, FAR_DISTANCE);
+    glUniformMatrix4fv(projection_id, 1, GL_FALSE, (f32*) &projection.m[0][0]);
 }
 
 //*************************************
@@ -674,7 +708,10 @@ int main(int argc, char** argv)
     // help
     printf("Cube Shooter\n");
     printf("James William Fletcher (github.com/mrbid)\n\n");
-    printf("Use your keyboard arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.\n\n");
+    printf("Just move around your mouse :)\n\n");
+    printf("OR - you can use your keyboard, right click to toggle mouse/keyboard control.\n");
+    printf("KEYBOARD: arrow keys to move and spacebar to shoot.\n\n");
+    printf("In either modes press 'R' for new random seed and 'F' for FPS to console.\n\n");
 
     // init glfw
     if(!glfwInit()){exit(EXIT_FAILURE);}
@@ -691,7 +728,7 @@ int main(int argc, char** argv)
     glfwSetWindowPos(window, (desktop->width/2)-(winw/2), (desktop->height/2)-(winh/2)); // center window on desktop
     glfwSetWindowSizeCallback(window, window_size_callback);
     glfwSetKeyCallback(window, key_callback);
-    //glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwMakeContextCurrent(window);
     gladLoadGL(glfwGetProcAddress);
     glfwSwapInterval(1); // 0 for immediate updates, 1 for updates synchronized with the vertical retrace, -1 for adaptive vsync
@@ -700,7 +737,7 @@ int main(int argc, char** argv)
     glfwSetWindowIcon(window, 1, &(GLFWimage){16, 16, (unsigned char*)&icon_image.pixel_data});
 
     // hide cursor
-    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     // seed random
     srand(NEWGAME_SEED);
