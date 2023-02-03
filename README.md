@@ -11,7 +11,7 @@ https://snapcraft.io/cubes2
 ### Release
 https://github.com/mrbid/Cubes2/releases/tag/1.1
 
-### [ARM64] Linux Binary (Raspbian 10)
+### [ARM64] Linux Binary (Raspbian 10) (OLD 1.0)
 https://github.com/mrbid/cubes2/raw/main/cubes2_arm
 
 ## Controls
