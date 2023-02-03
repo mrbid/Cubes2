@@ -16,11 +16,9 @@ https://github.com/mrbid/cubes2/raw/main/cubes2_arm
 
 ## Controls
 
-Uses mouse by default, easy, just move it around, right click to toggle Keyboard/Mouse control.
+Uses mouse by default,  right click to toggle Keyboard/Mouse control.
 
-If keyboard: use your keyboard arrow keys to move and spacebar to shoot.
-
-At any time: R for new random seed, F for FPS to console.
+KEYBOARD: arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.
 
 ## Info
 
