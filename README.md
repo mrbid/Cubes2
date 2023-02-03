@@ -8,18 +8,11 @@ A simple 3D arcade platformer / shooter combo.
 ### Snapcraft
 https://snapcraft.io/cubes2
 
-### AppImage
-https://github.com/mrbid/cubes2/raw/main/Cubes_Shooter-x86_64.AppImage
-
-### [x86_64] Linux Binary (Ubuntu 21.10)
-https://github.com/mrbid/cubes2/raw/main/cubes2
+### Release
+https://github.com/mrbid/Cubes2/releases/tag/1.1
 
 ### [ARM64] Linux Binary (Raspbian 10)
 https://github.com/mrbid/cubes2/raw/main/cubes2_arm
-
-### Windows Binary
-https://github.com/mrbid/cubes2/raw/main/cubes2.exe<br>
-https://github.com/mrbid/cubes2/raw/main/glfw3.dll
 
 ## Controls
 
@@ -27,7 +20,7 @@ Use your keyboard arrow keys to move and spacebar to shoot, R for new random see
 
 ## Info
 
-WIP, not what I intended it to be. It's become a bit of a problem child or burden because I just don't feel the original plan I wrote up for it anymore. I am not sure I even want to continue with the idea, rather just cap it off at some point of reasonable completion. It seems to run pretty well on the RPI 4B+ though which is pretty cool.
+WIP, not what I intended it to be. It seems to run pretty well on the RPI 4B+ though which is pretty cool but the cubes2_arm binary in the source repo is out of date.
 
 The game that inspired this: https://www.pouet.net/prod.php?which=12116
 
