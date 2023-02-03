@@ -392,8 +392,8 @@ void main_loop()
     if(enable_mouse == 1)
     {
         glfwGetCursorPos(window, &x, &y);
-        x -= winw/3.f; // could precompute
-        y -= winh/3.f; // could precompute
+        x -= ww/3.f; // could precompute
+        y -= wh/3.f; // could precompute
         x *= 3.f;
         y *= 3.f;
         x = 2 + (x * rww) * 30;
