@@ -5,6 +5,9 @@ A simple 3D arcade shooter.
 
 ## Downloads
 
+### Web
+https://mrbid.github.io/cubeshooter/
+
 ### Snapcraft
 https://snapcraft.io/cubes2
 
