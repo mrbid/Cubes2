@@ -20,6 +20,8 @@ Uses mouse by default,  right click to toggle Keyboard/Mouse control.
 
 KEYBOARD: arrow keys to move and spacebar to shoot, R for new random seed, F for FPS to console.
 
+Your health is your score delta, if you go into minus score your cube turns red, and in positive score it turns back to yellow.
+
 ## Info
 
 WIP, not what I intended it to be. It seems to run pretty well on the RPI 4B+ though which is pretty cool but the cubes2_arm binary in the source repo is out of date.
