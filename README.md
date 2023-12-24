@@ -3,7 +3,7 @@ A simple 3D arcade shooter.
 
 [![Screenshot of the Cube Shooter game aka Cubes 2](https://dashboard.snapcraft.io/site_media/appmedia/2021/12/Screenshot_2021-12-27_09-20-59.png)](https://www.youtube.com/watch?v=UVxZ8ni4Uz8 "Cube Shooter Game Video")
 
-This has been superceeded by the latest version at: https://github.com/mrbid/NotABug-Mirror/tree/main/CubeShooter or https://notabug.org/Vandarin/CubeShooter
+This has been superceeded by the latest version at: https://github.com/mrbid/NotABug-Mirror/tree/main/CubeShooter
 
 ## Downloads
 
